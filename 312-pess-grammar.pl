@@ -732,3 +732,21 @@ part_of_speech(adv) --> [adverb].
 build_word_term(WordTerm, Word, POS) :- 
   functor(WordTerm, POS, 1),
   arg(1, WordTerm, Word).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% p1 question 3: Parsing Goals
+goal(Goal,[is,it|A],D):- sentence(Attr,[it,is|A],E),
+	build_goal(Attr,Goal), D=E.
+goal(Goal,[does,it|A], D):- sentence(Attr,[it|A],E),
+	build_goal(Attr,Goal), D=E.
+goal(Goal) --> [what], qphrase(Goal).
+
+qphrase(Goal) --> [is],[it],
+    {build_variable_goal(Goal,is_a)}.
+qphrase(Goal) --> [does],[it],[have],
+    {build_variable_goal(Goal,has_a)}.
+
+build_goal(Attr,[Goal]):- Goal = rule(top_goal(yes),Attr).
+build_variable_goal([Goal],Type):- Goal = rule(top_goal(X),
+	attr(Type,X,[])).
+
