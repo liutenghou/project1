@@ -1,0 +1,68 @@
+words:
+      color is a noun
+      cap is a noun
+      tubes is a noun
+      penny-bun-bolete is a noun
+      gills is a noun
+      chanterelle is a noun
+      stem is a noun
+      parasol is a noun
+      bay-bolete is a noun
+      lobe is a noun
+      spines is a noun
+      wood-urchin is a noun
+      flesh is a noun
+      base is a noun.
+
+words:
+      convex is an adjective
+      swollen is an adjective
+      yellow is a adjective
+      lobed is an adjective
+      decurrent is an adjective
+      short is an adjective
+      cream is an adjective
+      egg-shaped is an adjective
+      white is an adjective
+      slender is an adjective
+      viscid is an adjective
+      pale is an adjective
+      pinkish is an adjective
+      irregular is an adjective.
+
+rule:
+if    its color is brown and
+      its cap is convex and
+      it has a swollen base and
+      its tubes are yellow 
+then  it is a penny-bun-bolete.
+
+rule:
+if    its color is yellow and
+      its cap is lobed and
+      its gills are decurrent and
+      its stem is short and
+      its flesh is yellow
+then  it is a chanterelle.
+
+rule:
+if    its color is cream and
+      its cap is egg-shaped and
+      its gills are white and
+      its stem is slender
+then  it is a parasol.
+
+rule:
+if    its color is brown and
+      its cap is viscid and
+      its tubes are yellow and
+      its stem is pale
+then  it is a bay-bolete.
+
+rule:
+if    its color is pinkish and
+      its lobe is irregular and
+      its spines are short and
+      its stem is short
+then  it is a wood-urchin.
+
