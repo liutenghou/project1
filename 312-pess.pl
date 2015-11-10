@@ -380,7 +380,7 @@ process(['words:'|L]) :-    % Found a vocab statement.
 % p1 question 3.
 process(['goal:'|L]) :-	    % Found a goal.
         goal(R,L,[]),       % Parse the goal.
-        bug(V),             % Print it for debugging.
+        bug(R),             % Print it for debugging.
         assert_rules(R), !. % Assert it in the DB.
 
 process(L) :-
@@ -395,7 +395,7 @@ assert_rules([R|Rs]) :- assertz(R), assert_rules(Rs).
 % Also establishes the default top goal (to find out what "it" is).
 clear_db :-
         abolish(rule,2),
-        dynamic(rule/2),
+        dynamic(rule/2).
         %% For now, top_goal is set manually. Commented out for question3.
         % assertz(rule(top_goal(X), [attr(is_a, X, [])])).
 
