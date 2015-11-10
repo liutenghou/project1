@@ -45,14 +45,18 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Interpreter loop                                             %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Greeting message when running main.
 greeting:-
   write('This is the CPSC312 Prolog Expert System Shell.'), nl,
   write('Based on Amzi\'s \"native Prolog shell\".'), nl,
   help_msg.
 
+% Greeting message when running help.
 help_msg:- write('Type help. load. solve. or quit.'), nl,
         write('at the prompt. Notice the period after each command!'), nl.
 
+% main function.
 main:- greeting, % write greatings to the shell.
      repeat,   % uses a fail loop to continue until the user enters command quit.
      write('>'),
@@ -60,11 +64,11 @@ main:- greeting, % write greatings to the shell.
      do(X),
      X == quit.
 
+% helper function to run other commands.
 do(help):- help_msg, !.
 do(load):- write('Enter file name in single qoutes, followed by a period (e.g \'bird.kb\'.):'), read(Filename), load_rules(Filename), !.
 do(solve):- solve, !.
 do(quit).
-
 do(X):- write(X), write('is not a legal command.'),nl, fail.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Solving, asking, and proving                                 %%
