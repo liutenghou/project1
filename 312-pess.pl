@@ -371,56 +371,15 @@ process(['rule:'|L]) :-     % Found a rule.
         rule(R,L,[]),       % Parse the rule.
         bug(R),             % Print it for debugging.
         assert_rules(R), !. % Assert it (them, potentially) in the DB.
-process(L) :-
-        write('trans error on:'),nl,
-        write(L),nl.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%% 3 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% Add to 312-pess.pl just after the "process(['rule:'..." line
+% From p1checkpoint 3.
 process(['words:'|L]) :-    % Found a vocab statement.
         vocab(V,L,[]),      % Parse the new vocabulary.
         bug(V),             % Print it for debugging.
         assert_rules(V), !. % Assert it (them, potentially) in the DB.
 
-% Note that you could also have directly asserted the new vocabulary
-% into the database while parsing it, but this seems a less modular
-% solution to me than parsing out the vocabulary's meaning and then
-% separately asserting it into the database. 
-
-% Add to 312-pess-grammar.pl in its own section:
-
-% A new set of vocabulary can be a single "sentence" defining a word 
-% or multiple such "sentences" connected by an optional "and". 
-vocab([Word]) --> word(Word).
-vocab([Word|Words]) --> word(Word), vocab(Words).
-
-% A word "sentence" is a new word followed by "is a", either or 
-% both of which may be missing, followed by a part of speech.
-% build_word_term uses functor and arg to build up the part of
-% speech into an appropriate predicate, but there are other 
-% solutions as well.
-word(WordTerm) --> [Word], opt_is, opt_a_an, part_of_speech(POS),
-	{ build_word_term(WordTerm, Word, POS) }.
-
-opt_is --> [is].
-opt_is --> [].
-
-opt_a_an --> [a].
-opt_a_an --> [an].
-opt_a_an --> [].
-
-part_of_speech(n)   --> [noun].
-part_of_speech(v)   --> [verb].
-part_of_speech(adj) --> [adjective].
-part_of_speech(adv) --> [adverb].
-
-% Given a ground part of speech, build_word_term(WordTerm, Word, POS)
-% is true if WordTerm is of the form Word(POS).
-build_word_term(WordTerm, Word, POS) :- 
-	functor(WordTerm, POS, 1),
-	arg(1, WordTerm, Word).
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+process(L) :-
+        write('trans error on:'),nl,
+        write(L),nl.
 
 % Assert a list of rules.
 assert_rules([]).

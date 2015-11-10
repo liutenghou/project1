@@ -696,3 +696,39 @@ v(scavenges).
 v(quacks).
 v(summers).
 v(winters).
+
+%%%%%%%%%%%%%%%%%%%%%%%
+% From p1checkpoint 3
+% A new set of vocabulary can be a single "sentence" defining a word 
+% or multiple such "sentences" connected by an optional "and". 
+vocab([Word]) --> word(Word).
+vocab([Word|Words]) --> word(Word), opt_and, vocab(Words).
+
+% A word "sentence" is a new word followed by "is a", either or 
+% both of which may be missing, followed by a part of speech.
+% build_word_term uses functor and arg to build up the part of
+% speech into an appropriate predicate, but there are other 
+% solutions as well.
+word(WordTerm) --> [Word], opt_is, opt_a_an, part_of_speech(POS), 
+  { build_word_term(WordTerm, Word, POS) }.
+
+opt_is --> [is].
+opt_is --> [].
+
+opt_a_an --> [a].
+opt_a_an --> [an].
+opt_a_an --> [].
+
+opt_and --> [and].
+opt_and --> [].
+
+part_of_speech(n)   --> [noun].
+part_of_speech(v)   --> [verb].
+part_of_speech(adj) --> [adjective].
+part_of_speech(adv) --> [adverb].
+
+% Given a ground part of speech, build_word_term(WordTerm, Word, POS)
+% is true if WordTerm is of the form Word(POS).
+build_word_term(WordTerm, Word, POS) :- 
+  functor(WordTerm, POS, 1),
+  arg(1, WordTerm, Word).
